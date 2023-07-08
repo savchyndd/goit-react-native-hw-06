@@ -3,9 +3,18 @@ import { Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-na
 import { Text, View } from 'react-native';
 
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import PostsItem from '../../components/PostsItem/PostsItem';
+import { selectAvatar, selectEmail, selectLogin } from '../../redux/auth/authSelections';
 
 const DefaultPostsScreen = ({ route }) => {
+  const dispatch = useDispatch();
+
+  const avatar = useSelector(selectAvatar);
+  const login = useSelector(selectLogin);
+  const email = useSelector(selectEmail);
+
   const [posts, setPosts] = useState([
     {
       id: 'ksdlflsdnfsldjnfdjfsjdkfn',
@@ -26,10 +35,10 @@ const DefaultPostsScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarWrapper}>
-        <Image style={styles.avatarImg} />
+        <Image style={styles.avatarImg} source={avatar} />
         <View>
-          <Text style={styles.avatarName}>Natali Romanova</Text>
-          <Text style={styles.avatarEmail}>email@example.com</Text>
+          <Text style={styles.avatarName}>{login}</Text>
+          <Text style={styles.avatarEmail}>{email}</Text>
         </View>
       </View>
       <FlatList
